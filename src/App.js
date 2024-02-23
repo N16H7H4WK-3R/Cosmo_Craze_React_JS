@@ -5,6 +5,7 @@ import PromoSection from './components/promoSection';
 import ProductOverview from './components/productOverview';
 import SignIn from './components/signIn';
 import Footer from './components/footer';
+import ShoppingCart from './components/cart';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             }
           />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/cart" element={<ShoppingCart />} />
         </Routes>
       </Router>
     </>

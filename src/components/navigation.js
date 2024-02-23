@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, HeartIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, HeartIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = {
     categories: [
@@ -255,7 +255,7 @@ export default function Navigation() {
                         <div className="flex h-16 items-center">
                             <button
                                 type="button"
-                                className="relative rounded-md bg-black p-2 text-white lg:hidden"
+                                className="relative rounded-md bg-black p-2 text-gray-400 lg:hidden"
                                 onClick={() => setOpen(true)}
                             >
                                 <span className="absolute -inset-0.5" />
