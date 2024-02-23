@@ -11,14 +11,14 @@ export default function Header() {
                             <span className="sr-only">Your Company</span>
                             <img className="h-8 w-auto" src={logo} alt="Company Logo" />
                         </a>
-                        <form style={{ width: "75vw"}} className="relative mx-4 lg:ml-8">
+                        <form style={{ width: "75vw" }} className="relative mx-4 lg:ml-12">
                             <label htmlFor="default-search" className="sr-only">Search</label>
-                            <input type="search" id="default-search" className="w-full sm:w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-black focus:border-black dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black" placeholder="Search Mockups, Logos..." required />
-                            <button type="submit" className="absolute inset-y-0 right-0 flex items-center justify-center text-white hover:text-black font-medium rounded-lg text-sm px-4">Search</button>
+                            <input type="search" id="default-search" className="w-full sm:w-full p-3 pl-10 text-sm text-gray-900 rounded-lg bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="Search Men, Women, Kids..." required />
+                            <button type="submit" className="absolute inset-y-0 right-0 flex items-center justify-center text-white hover:text-blue-500 font-medium rounded-lg text-sm px-4">Search</button>
                         </form>
                     </div>
                     <div className="flex lg:flex-1 lg:justify-end">
-                        <a href="/signin" className="text-sm font-semibold leading-6 text-white">
+                        <a href="/signin" className="text-sm font-semibold leading-6 text-white hover:text-red-800">
                             Log in <span aria-hidden="true">&rarr;</span>
                         </a>
                     </div>
