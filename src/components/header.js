@@ -25,7 +25,7 @@ export default function Header() {
                 </nav>
                 <Navigation />
             </header>
-            <p className="flex items-center justify-center bg-indigo-500 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $100</p>
+            {/* <p className="flex items-center justify-center bg-indigo-500 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $100</p> */}
         </>
     );
 }

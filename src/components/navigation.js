@@ -377,7 +377,7 @@ export default function Navigation() {
 
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="/" className="group -m-2 flex items-center p-2">
+                                    <a href="/cart" className="group -m-2 flex items-center p-2">
                                         <ShoppingBagIcon
                                             className="h-6 w-6 flex-shrink-0 text-white group-hover:text-green-600"
                                             aria-hidden="true"

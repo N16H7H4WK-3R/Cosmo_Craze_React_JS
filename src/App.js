@@ -12,6 +12,7 @@ function App() {
     <>
       <Router>
         <Routes>
+          <Route path="/signin" element={<SignIn />} />
           <Route
             path="/"
             element={
@@ -31,8 +32,14 @@ function App() {
               </>
             }
           />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/cart" element={
+            <>
+              <Header />
+              <ShoppingCart />
+              <Footer />
+            </>
+          }
+          />
         </Routes>
       </Router>
     </>
