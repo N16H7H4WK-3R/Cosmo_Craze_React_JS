@@ -5,28 +5,28 @@ const callouts = [
         description: 'Latest collection of casual wear.',
         imageSrc: 'https://bollywoo.ooo/cdn/shop/products/off1.jpg?v=1681655209',
         imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
-        href: '#',
+        href: '/product',
     },
     {
         name: 'Women',
         description: 'Focus on the latest fashion trends.',
         imageSrc: 'https://filmfare.wwmindia.com/photogallery/2023/dec/triptidimri11702803514.jpg',
         imageAlt: 'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
-        href: '#',
+        href: '/product',
     },
     {
         name: 'Kids',
         description: 'New arrivals are here.',
         imageSrc: 'https://starsbiodata.com/wp-content/uploads/2017/06/Taimur-Ali-Khan.jpg',
         imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
-        href: '#',
+        href: '/product',
     },
     {
         name: 'Home & Decor',
         description: 'Shop for the latest home decor products.',
         imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
         imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
-        href: '#',
+        href: '/product',
     },
 ]
 
@@ -40,12 +40,15 @@ export default function Category() {
                     <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-12">
                         {callouts.map((callout) => (
                             <div key={callout.name} className="group relative">
-                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                                <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 group">
                                     <img
                                         src={callout.imageSrc}
                                         alt={callout.imageAlt}
-                                        className="h-80 w-full object-cover object-center group-hover:opacity-75"
+                                        className="h-80 w-full object-cover object-center group-hover:opacity-85 transition-all duration-300 ease-in"
                                     />
+                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                                        <p className="text-black text-sm font-semibold">Check this Out </p>
+                                    </div>
                                 </div>
                                 <h3 className="mt-6 text-sm text-white">
                                     <a href={callout.href}>

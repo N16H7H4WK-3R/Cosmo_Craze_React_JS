@@ -13,7 +13,7 @@ export default function Header() {
                         </a>
                         <form style={{ width: "75vw" }} className="relative mx-4 lg:ml-12">
                             <label htmlFor="default-search" className="sr-only">Search</label>
-                            <input type="search" id="default-search" className="w-full sm:w-full p-3 pl-10 text-sm text-gray-900 rounded-lg bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="Search Men, Women, Kids..." required />
+                            <input type="search" id="default-search" className="w-full sm:w-full p-3 pl-4 text-sm text-gray-900 rounded-lg bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white" placeholder="Search products..." required />
                             <button type="submit" className="absolute inset-y-0 right-0 flex items-center justify-center text-white hover:text-blue-500 font-medium rounded-lg text-sm px-4">Search</button>
                         </form>
                     </div>

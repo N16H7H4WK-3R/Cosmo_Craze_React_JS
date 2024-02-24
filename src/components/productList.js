@@ -111,7 +111,7 @@ export default function List() {
                                 <img
                                     src={product.imageSrc}
                                     alt={product.imageAlt}
-                                    className="h-full w-full object-cover object-center group-hover:opacity-75"
+                                    className="h-full w-full object-cover object-center transform transition-transform duration-300 hover:scale-125"
                                 />
                             </div>
                             <h3 className="mt-4 text-xs text-white">{product.name}</h3>
