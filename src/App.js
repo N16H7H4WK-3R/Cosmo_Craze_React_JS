@@ -6,6 +6,7 @@ import ProductOverview from './components/productOverview';
 import SignIn from './components/signIn';
 import Footer from './components/footer';
 import ShoppingCart from './components/cart';
+import MainContent from './components/mainContent';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <>
                 <Header />
                 <ProductOverview />
+                <Footer />
               </>
             }
           />
@@ -36,6 +38,14 @@ function App() {
             <>
               <Header />
               <ShoppingCart />
+              <Footer />
+            </>
+          }
+          />
+          <Route path='/product' element={
+            <>
+              <Header />
+              <MainContent />
               <Footer />
             </>
           }

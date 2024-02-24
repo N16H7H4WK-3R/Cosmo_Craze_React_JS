@@ -57,7 +57,7 @@ export default function MainContent() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
-        <div className="bg-white">
+        <div className="bg-gray-900">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -150,16 +150,16 @@ export default function MainContent() {
                 </Transition.Root>
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4" >
-                    <div className="sticky top-0 flex items-baseline justify-between border-b border-gray-200 pb-6 pt-8">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+                    <div className="sticky top-0 flex items-baseline justify-between border-b border-gray-600 pb-6 pt-8">
+                        <h1 className="text-4xl font-bold tracking-tight text-white">New Arrivals</h1>
 
                         <div className="flex items-center">
                             <Menu as="div" className="relative inline-block text-left">
                                 <div>
-                                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                                    <Menu.Button className="group inline-flex justify-center text-sm font-medium text-white hover:text-indigo-600">
                                         Sort
                                         <ChevronDownIcon
-                                            className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-white group-hover:text-indigo-600"
                                             aria-hidden="true"
                                         />
                                     </Menu.Button>
@@ -197,13 +197,13 @@ export default function MainContent() {
                                 </Transition>
                             </Menu>
 
-                            <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+                            <button type="button" className="-m-2 ml-5 p-2 text-white hover:text-indigo-600 sm:ml-7">
                                 <span className="sr-only">View grid</span>
                                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
                             </button>
                             <button
                                 type="button"
-                                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                                className="-m-2 ml-4 p-2 text-white hover:text-indigo-600 sm:ml-6 lg:hidden"
                                 onClick={() => setMobileFiltersOpen(true)}
                             >
                                 <span className="sr-only">Filters</span>
@@ -221,12 +221,12 @@ export default function MainContent() {
                             {/* Filters */}
                             <form className="hidden lg:block">
                                 {filters.map((section) => (
-                                    <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
+                                    <Disclosure as="div" key={section.id} className="border-b border-gray-600 py-6">
                                         {({ open }) => (
                                             <>
                                                 <h3 className="-my-3 flow-root">
-                                                    <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                                        <span className="font-medium text-gray-900">{section.name}</span>
+                                                    <Disclosure.Button className="flex w-full items-center justify-between bg-gray-900 py-3 text-sm text-white">
+                                                        <span className="font-medium text-white">{section.name}</span>
                                                         <span className="ml-6 flex items-center">
                                                             {open ? (
                                                                 <MinusIcon className="h-5 w-5" aria-hidden="true" />
