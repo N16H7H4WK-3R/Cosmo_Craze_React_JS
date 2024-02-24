@@ -265,7 +265,7 @@ export default function MainContent() {
                             </form>
 
                             {/* Product grid */}
-                            <div className="lg:col-span-3 ">
+                            <div className="lg:col-span-3 border-l border-gray-600 ">
                                 <List />
                             </div>
                         </div>

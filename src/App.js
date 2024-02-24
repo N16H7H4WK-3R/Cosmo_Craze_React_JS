@@ -7,6 +7,7 @@ import SignIn from './components/signIn';
 import Footer from './components/footer';
 import ShoppingCart from './components/cart';
 import MainContent from './components/mainContent';
+import Wishlist from './components/wishlist';
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
             <>
               <Header />
               <ShoppingCart />
+              <Footer />
+            </>
+          }
+          />
+          <Route path="/wishlist" element={
+            <>
+              <Header />
+              <Wishlist />
               <Footer />
             </>
           }

@@ -364,10 +364,11 @@ export default function Navigation() {
 
                             <div className="ml-auto flex items-center">
 
+                                {/* Wishlist */}
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="/" className="group -m-2 flex items-center p-2">
+                                    <a href="/wishlist" className="group -m-2 flex items-center p-2">
                                         <HeartIcon
-                                            className="h-6 w-6 flex-shrink-0 text-white group-hover:text-red-600"
+                                            className="h-6 w-6 flex-shrink-0 text-white group-hover:text-red-600 group-hover:fill-red-500"
                                             aria-hidden="true"
                                         />
                                         <span className="ml-2 text-sm font-medium text-white group-hover:text-white">0</span>
