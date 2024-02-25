@@ -1,4 +1,4 @@
-import logo from '../assets/cosmo_craze_logo.png';
+import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
 
 export default function SignUp() {
     return (

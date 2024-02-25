@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/header';
 import PromoSection from './components/promoSection';
 import ProductOverview from './components/productOverview';
-import SignIn from './components/signIn';
+import SignIn from './components/RegistrationViews/signIn';
 import Footer from './components/footer';
 import ShoppingCart from './components/cart';
 import MainContent from './components/mainContent';
 import Wishlist from './components/wishlist';
-import SignUp from './components/signup';
+import SignUp from './components/RegistrationViews/signup';
 
 function App() {
   return (
