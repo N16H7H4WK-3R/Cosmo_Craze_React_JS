@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import ShoppingCart from './components/cart';
 import MainContent from './components/mainContent';
 import Wishlist from './components/wishlist';
+import SignUp from './components/signup';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route
             path="/"
             element={
