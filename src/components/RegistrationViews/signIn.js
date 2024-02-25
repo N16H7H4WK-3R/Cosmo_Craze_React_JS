@@ -1,8 +1,73 @@
+import React, { useState } from 'react';
 import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export default function SignIn() {
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const [isValidForm, setIsValidForm] = useState(true);
+
+    const showToast = (message, type) => {
+        toast[type](message, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: true,
+            theme: 'dark',
+        });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const validateForm = () => {
+        setIsValidForm(formData.email.trim() !== '' && formData.password.length >= 8);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        validateForm();
+
+        if (!isValidForm) {
+            showToast('Please enter valid information in all fields.', 'error');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/user/login/customer/', formData);
+
+            if (response.status === 200) {
+                const { token } = response.data;
+                sessionStorage.setItem('token', token);
+                showToast('Log In Successful!', 'success');
+                setTimeout(() => {
+                    navigate('/');
+                }, 3000);
+            } else {
+                showToast('Login failed. Please check your credentials.', 'error');
+            }
+        } catch (error) {
+            console.error('Error logging in:');
+            showToast('An error occurred while logging in. Please try again later.', 'error');
+        }
+    };
+
     return (
         <>
+            <ToastContainer />
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-24 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
@@ -16,7 +81,7 @@ export default function SignIn() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
@@ -27,7 +92,8 @@ export default function SignIn() {
                                     name="email"
                                     type="email"
                                     autoComplete="email"
-                                    required
+                                    value={formData.email}
+                                    onChange={handleInputChange}
                                     className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -50,7 +116,8 @@ export default function SignIn() {
                                     name="password"
                                     type="password"
                                     autoComplete="current-password"
-                                    required
+                                    value={formData.password}
+                                    onChange={handleInputChange}
                                     className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-lg sm:leading-6"
                                 />
                             </div>
@@ -64,6 +131,8 @@ export default function SignIn() {
                                 Sign in
                             </button>
                         </div>
+                        <div className="text-red-600 text-sm mt-2">
+                        </div>
                     </form>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
@@ -75,5 +144,5 @@ export default function SignIn() {
                 </div>
             </div>
         </>
-    )
+    );
 }
