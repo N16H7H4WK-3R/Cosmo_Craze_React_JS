@@ -1,6 +1,8 @@
 import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
+    const navigate = useNavigate();
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-24 lg:px-8">
@@ -95,9 +97,9 @@ export default function SignUp() {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Already a member ?{'  '}
-                        <a href="/signin" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <button onClick={() => navigate('/signin')} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign in to your account!
-                        </a>
+                        </button>
                     </p>
                 </div>
             </div>

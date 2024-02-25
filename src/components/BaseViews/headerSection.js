@@ -1,7 +1,9 @@
-import logo from '../assets/cosmo_craze_transparent_logo.png';
-import Navigation from './navigation';
+import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_transparent_logo.png';
+import Navigation from './navigationSection';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+    const navigate = useNavigate();
     return (
         <>
             <header className="bg-black sticky top-0 z-10">
@@ -18,9 +20,9 @@ export default function Header() {
                         </form>
                     </div>
                     <div className="flex lg:flex-1 lg:justify-end">
-                        <a href="/signin" className="text-sm font-semibold leading-6 text-white hover:text-red-800">
+                        <button onClick={() => navigate('/signin')} className="text-sm font-semibold leading-6 text-white hover:text-red-800">
                             Log in <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        </button>
                     </div>
                 </nav>
                 <Navigation />

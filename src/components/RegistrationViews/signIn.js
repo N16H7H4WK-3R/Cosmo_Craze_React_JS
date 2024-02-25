@@ -115,7 +115,7 @@ export default function SignIn() {
                                     id="password"
                                     name="password"
                                     type="password"
-                                    autoComplete="current-password"
+                                    autoComplete="password"
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-lg sm:leading-6"
@@ -137,9 +137,9 @@ export default function SignIn() {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not a member ?{'  '}
-                        <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <button onClick={() => navigate('/signup')} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Create a new account
-                        </a>
+                        </button>
                     </p>
                 </div>
             </div>

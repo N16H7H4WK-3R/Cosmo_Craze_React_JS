@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, HeartIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
 
 const navigation = {
     categories: [
@@ -131,6 +132,7 @@ function classNames(...classes) {
 
 export default function Navigation() {
     const [open, setOpen] = useState(false)
+    const navigate = useNavigate();
 
     return (
         <div className="bg-black">
@@ -366,26 +368,26 @@ export default function Navigation() {
 
                                 {/* Wishlist */}
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="/wishlist" className="group -m-2 flex items-center p-2">
+                                    <button onClick={() => navigate('/wishlist')} className="group -m-2 flex items-center p-2">
                                         <HeartIcon
                                             className="h-6 w-6 flex-shrink-0 text-white group-hover:text-red-600 group-hover:fill-red-500"
                                             aria-hidden="true"
                                         />
                                         <span className="ml-2 text-sm font-medium text-white group-hover:text-white">0</span>
                                         <span className="sr-only">items in wish list, view WishList</span>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="/cart" className="group -m-2 flex items-center p-2">
+                                    <button onClick={() => navigate('/cart')} className="group -m-2 flex items-center p-2">
                                         <ShoppingBagIcon
                                             className="h-6 w-6 flex-shrink-0 text-white group-hover:text-green-600"
                                             aria-hidden="true"
                                         />
                                         <span className="ml-2 text-sm font-medium text-white group-hover:text-white">0</span>
                                         <span className="sr-only">items in cart, view bag</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>

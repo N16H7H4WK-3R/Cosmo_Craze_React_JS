@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/header';
-import PromoSection from './components/promoSection';
-import ProductOverview from './components/productOverview';
+import Header from './components/BaseViews/headerSection';
+import PromoSection from './components/BaseViews/promoSection';
+import ProductOverview from './components/ProductViews/productOverview';
 import SignIn from './components/RegistrationViews/signIn';
-import Footer from './components/footer';
-import ShoppingCart from './components/cart';
+import Footer from './components/BaseViews/footerSection';
+import ShoppingCart from './components/UserViews/userCart';
 import MainContent from './components/mainContent';
-import Wishlist from './components/wishlist';
+import Wishlist from './components/UserViews/userWishlist';
 import SignUp from './components/RegistrationViews/signup';
 
 function App() {

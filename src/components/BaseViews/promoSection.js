@@ -1,5 +1,5 @@
-import Category from "./productCategory";
-import List from "./productList";
+import Category from "../ProductViews/productCategory";
+import List from "../ProductViews/productList";
 
 export default function PromoSection() {
     return (
