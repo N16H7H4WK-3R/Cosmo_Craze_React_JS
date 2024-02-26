@@ -9,6 +9,7 @@ import ShoppingCart from './components/UserViews/userCart';
 import MainContent from './components/mainContent';
 import Wishlist from './components/UserViews/userWishlist';
 import SignUp from './components/RegistrationViews/signup';
+import ForgotPasswordView from './components/RegistrationViews/forgotPasswordView';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPasswordView />} />
           <Route
             path="/"
             element={
