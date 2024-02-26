@@ -10,6 +10,7 @@ import MainContent from './components/mainContent';
 import Wishlist from './components/UserViews/userWishlist';
 import SignUp from './components/RegistrationViews/signup';
 import ForgotPasswordView from './components/RegistrationViews/forgotPasswordView';
+import ResetPasswordView from './components/RegistrationViews/resetPasswordView';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPasswordView />} />
+          <Route path="/reset-password" element={<ResetPasswordView />} />
           <Route
             path="/"
             element={

@@ -87,7 +87,7 @@ export default function ForgotPasswordView() {
 
             if (response.status === 200) {
                 showToast('OTP verification successfull', 'success');
-                navigate('/reset-password');
+                navigate('/reset-password', { state: { email } });
             } else {
                 showToast('OTP verification failed', 'error');
             }
