@@ -8,12 +8,10 @@ import axios from 'axios';
 export default function SignIn() {
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
-
-    const [isValidForm, setIsValidForm] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidPassword, setIsValidPassword] = useState(true);
 
     const showToast = (message, type) => {
         toast[type](message, {
@@ -27,27 +25,41 @@ export default function SignIn() {
         });
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    const validateEmail = (value) => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        setIsValidEmail(emailRegex.test(value));
     };
 
-    const validateForm = () => {
-        setIsValidForm(formData.email.trim() !== '' && formData.password.length >= 8);
+    const handleEmailChange = (e) => {
+        const value = e.target.value;
+        setEmail(value);
+        validateEmail(value);
+    };
+
+    const handlePasswordChange = (e) => {
+        const value = e.target.value;
+        setPassword(value);
+        setIsValidPassword(value.length >= 8);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        validateForm();
+        if (!email || !isValidEmail) {
+            showToast('A valid email is required ! ', 'error');
+            return;
+        }
 
-        if (!isValidForm) {
-            showToast('Please enter valid information in all fields.', 'error');
+        if (!password || !isValidPassword) {
+            showToast('A valid Password is required ! ', 'error');
             return;
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/user/login/customer/', formData);
+            const response = await axios.post('http://127.0.0.1:8000/user/login/customer/', {
+                email: email,
+                password: password,
+            });
 
             if (response.status === 200) {
                 const { token } = response.data;
@@ -60,8 +72,9 @@ export default function SignIn() {
                 showToast('Login failed. Please check your credentials.', 'error');
             }
         } catch (error) {
-            console.error('Error logging in:');
-            showToast('An error occurred while logging in. Please try again later.', 'error');
+            // Remove the console.error in production
+            console.error('Error logging in:', error);
+            showToast('Invalid Credentials ', 'error');
         }
     };
 
@@ -92,8 +105,8 @@ export default function SignIn() {
                                     name="email"
                                     type="email"
                                     autoComplete="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
+                                    value={email}
+                                    onChange={handleEmailChange}
                                     className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -105,9 +118,9 @@ export default function SignIn() {
                                     Password
                                 </label>
                                 <div className="text-sm">
-                                    <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                    <button onClick={() => navigate('/forgot-password')} className="font-semibold text-indigo-600 hover:text-indigo-500">
                                         Forgot password?
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             <div className="mt-2">
@@ -116,8 +129,8 @@ export default function SignIn() {
                                     name="password"
                                     type="password"
                                     autoComplete="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
+                                    value={password}
+                                    onChange={handlePasswordChange}
                                     className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-lg sm:leading-6"
                                 />
                             </div>
