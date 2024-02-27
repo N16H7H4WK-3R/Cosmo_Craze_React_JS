@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
 
-export default function SignIn() {
+const SignIn = () => {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -68,7 +68,7 @@ export default function SignIn() {
 
             if (response.status === 200) {
                 const { token } = response.data;
-                sessionStorage.setItem('token', token);
+                localStorage.setItem('token', token);
                 showToast('Log In Successful!', 'success');
                 setTimeout(() => {
                     navigate('/');
@@ -77,8 +77,8 @@ export default function SignIn() {
                 showToast('Login failed. Please check your credentials.', 'error');
             }
         } catch (error) {
-            console.error('Error logging in:', error);
-            showToast('An error occurred while logging in. Please try again later.', 'error');
+            const errorMessage = error.response?.data?.error?.error || 'An error occurred while signing in. Please try again later.';
+            showToast(errorMessage, 'error');
         } finally {
             setLoading(false);
         }
@@ -159,12 +159,10 @@ export default function SignIn() {
                                 {loading ? 'Signing in...' : 'Sign in'}
                             </button>
                         </div>
-                        <div className="text-red-600 text-sm mt-2">
-                        </div>
                     </form>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member ?{'  '}
+                        Not a member?{'  '}
                         <button onClick={() => navigate('/signup')} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Create a new account
                         </button>
@@ -174,3 +172,5 @@ export default function SignIn() {
         </>
     );
 }
+
+export default SignIn;
