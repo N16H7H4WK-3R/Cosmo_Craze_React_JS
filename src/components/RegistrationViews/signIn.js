@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
 
 export default function SignIn() {
     const navigate = useNavigate();
@@ -12,6 +14,7 @@ export default function SignIn() {
     const [password, setPassword] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const showToast = (message, type) => {
         toast[type](message, {
@@ -46,17 +49,19 @@ export default function SignIn() {
         e.preventDefault();
 
         if (!email || !isValidEmail) {
-            showToast('A valid email is required ! ', 'error');
+            showToast('Please enter a valid email.', 'error');
             return;
         }
 
         if (!password || !isValidPassword) {
-            showToast('A valid Password is required ! ', 'error');
+            showToast('Password must be at least 8 characters long.', 'error');
             return;
         }
 
+        setLoading(true);
+
         try {
-            const response = await axios.post('http://127.0.0.1:8000/user/login/customer/', {
+            const response = await axios.post(`${API_URL}/user/login/customer/`, {
                 email: email,
                 password: password,
             });
@@ -72,11 +77,20 @@ export default function SignIn() {
                 showToast('Login failed. Please check your credentials.', 'error');
             }
         } catch (error) {
-            // Remove the console.error in production
             console.error('Error logging in:', error);
-            showToast('Invalid Credentials ', 'error');
+            showToast('An error occurred while logging in. Please try again later.', 'error');
+        } finally {
+            setLoading(false);
         }
     };
+
+    useEffect(() => {
+        // Check if user is already logged in
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     return (
         <>
@@ -139,9 +153,10 @@ export default function SignIn() {
                         <div>
                             <button
                                 type="submit"
+                                disabled={loading}
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Sign in
+                                {loading ? 'Signing in...' : 'Sign in'}
                             </button>
                         </div>
                         <div className="text-red-600 text-sm mt-2">

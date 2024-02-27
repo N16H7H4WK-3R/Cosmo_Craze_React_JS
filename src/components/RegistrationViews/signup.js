@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+
 export default function SignUp() {
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [phone_number, setPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirm_password, setConfirmPassword] = useState('');
-    const [isValidEmail, setIsValidEmail] = useState(true);
-    const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
-    const [isValidPassword, setIsValidPassword] = useState(true);
-    const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
+    const [formData, setFormData] = useState({
+        email: '',
+        contact_number: '',
+        password: '',
+        confirm_password: ''
+    });
+
+    const [validationErrors, setValidationErrors] = useState({
+        email: '',
+        contact_number: '',
+        password: '',
+        confirm_password: ''
+    });
 
     const showToast = (message, type) => {
         toast[type](message, {
@@ -28,88 +35,72 @@ export default function SignUp() {
             theme: 'dark',
         });
     };
+    useEffect(() => {
+        // Validate form data
+        validateForm();
 
-    const validateEmail = (value) => {
+        // Check if user is already logged in
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formData]);
+
+
+    const validateForm = () => {
+        const errors = {};
+        if (!formData.email || !validateEmail(formData.email)) {
+            errors.email = 'A valid email is required';
+        }
+        if (!formData.contact_number) {
+            errors.contact_number = 'A valid Phone Number is required';
+        }
+        if (formData.password.length < 8) {
+            errors.password = 'Password must be at least 8 characters long';
+        }
+        if (formData.confirm_password !== formData.password) {
+            errors.confirm_password = 'Passwords do not match';
+        }
+        setValidationErrors(errors);
+    };
+
+    const validateEmail = (email) => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        setIsValidEmail(emailRegex.test(value));
+        return emailRegex.test(email);
     };
 
-    const validatePhoneNumber = (value) => {
-        setIsValidPhoneNumber(value.trim() !== ''); // check for non-empty username
-    };
-
-    const validateConfirmPassword = (value) => {
-        setIsValidConfirmPassword(value === password && value.trim() !== ''); // check for non-empty and match with password
-    };
-
-    const handleEmailChange = (e) => {
-        const value = e.target.value;
-        setEmail(value);
-        validateEmail(value);
-    };
-
-    const handlePhoneNumberChange = (e) => {
-        const value = e.target.value;
-        setPhoneNumber(value);
-        validatePhoneNumber(value);
-    };
-
-    const handlePasswordChange = (e) => {
-        const value = e.target.value;
-        setPassword(value);
-        setIsValidPassword(value.length >= 8);
-    };
-
-    const handleConfirmPasswordChange = (e) => {
-        const value = e.target.value;
-        setConfirmPassword(value);
-        validateConfirmPassword(value);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        if (!email || !isValidEmail) {
-            showToast('A valid email is required ! ', 'error');
-            return;
-        }
-
-        if (!phone_number || !isValidPhoneNumber) {
-            showToast('A valid Phone Number is required ! ', 'error');
-            return;
-        }
-
-        if (!password || !isValidPassword) {
-            showToast('A valid Password is required ! ', 'error');
-            return;
-        }
-
-        if (!confirm_password || !isValidConfirmPassword) {
-            showToast('Passwords do not match or empty ! ', 'error');
-            return;
-        }
-
         try {
-            // POST request to the signup endpoint
-            const response = await axios.post('http://127.0.0.1:8000/user/register/customer/', {
-                email: email,
-                phone_number: phone_number,
-                password: password,
-                confirm_password: confirm_password,
-            });
-
+            const response = await axios.post(`${API_URL}/user/register/customer/`, formData);
             if (response.status === 201) {
-                showToast('Sign Up Successful!', 'success');
-            } else {
-                showToast('Sign Up failed. Please check your credentials.', 'error');
+                const { token } = response.data;
+                if (token) {
+                    localStorage.setItem('token', token);
+                    showToast('Sign Up Successful!', 'success');
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 2000);
+                } else {
+                    showToast('Token is undefined. Please try again later.', 'error');
+                }
             }
         } catch (error) {
-            // Remove this console.error line in production
-            console.error('Error signing up:', error);
-            showToast('An error occurred while signing up. Please try again later.', 'error');
+            if (error.response) {
+                const { data } = error.response;
+                const errorMessage = data?.errors?.email?.[0] || data?.errors?.contact_number?.[0] || data?.message || 'An error occurred while signing up. Please try again later.';
+                showToast(errorMessage, 'error');
+            } else {
+                showToast('An error occurred while signing up. Please try again later.', 'error');
+            }
         }
     };
-
 
     return (
         <>
@@ -140,26 +131,28 @@ export default function SignUp() {
                                             name="email"
                                             type="email"
                                             autoComplete="email"
-                                            value={email}
-                                            onChange={handleEmailChange}
-                                            className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            className={`block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 ${validationErrors.email ? 'border-red-500' : ''}`}
                                         />
+                                        {validationErrors.email && <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>}
                                     </div>
                                 </div>
                                 <div className="mt-4">
-                                    <label htmlFor="phone_number" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="contact_number" className="block text-sm font-medium leading-6 text-gray-900">
                                         Phone Number
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="phone_number"
-                                            name="phone_number"
+                                            id="contact_number"
+                                            name="contact_number"
                                             type="text"
-                                            autoComplete="phone_number"
-                                            value={phone_number}
-                                            onChange={handlePhoneNumberChange}
-                                            className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                            autoComplete="contact_number"
+                                            value={formData.contact_number}
+                                            onChange={handleInputChange}
+                                            className={`block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 ${validationErrors.contact_number ? 'border-red-500' : ''}`}
                                         />
+                                        {validationErrors.contact_number && <p className="text-red-500 text-xs mt-1">{validationErrors.contact_number}</p>}
                                     </div>
                                 </div>
                             </div>
@@ -174,10 +167,11 @@ export default function SignUp() {
                                             name="password"
                                             type="password"
                                             autoComplete="password"
-                                            value={password}
-                                            onChange={handlePasswordChange}
-                                            className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                            value={formData.password}
+                                            onChange={handleInputChange}
+                                            className={`block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 ${validationErrors.password ? 'border-red-500' : ''}`}
                                         />
+                                        {validationErrors.password && <p className="text-red-500 text-xs mt-1">{validationErrors.password}</p>}
                                     </div>
                                 </div>
                                 <div className="mt-4">
@@ -190,10 +184,11 @@ export default function SignUp() {
                                             name="confirm_password"
                                             type="password"
                                             autoComplete="confirm_password"
-                                            value={confirm_password}
-                                            onChange={handleConfirmPasswordChange}
-                                            className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                            value={formData.confirm_password}
+                                            onChange={handleInputChange}
+                                            className={`block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6 ${validationErrors.confirm_password ? 'border-red-500' : ''}`}
                                         />
+                                        {validationErrors.confirm_password && <p className="text-red-500 text-xs mt-1">{validationErrors.confirm_password}</p>}
                                     </div>
                                 </div>
                             </div>
