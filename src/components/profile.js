@@ -26,7 +26,7 @@ export default function ProfileView() {
         // Check if user is already logged in
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/signin');
+            navigate('/');
         }
     }, [navigate]);
 
@@ -70,6 +70,15 @@ export default function ProfileView() {
                             </>
                         )}
                     </dl>
+                </div>
+                <div className="px-4 mt-6 border-t sm:px-0">
+                    {/* logout button */}
+                    <button onClick={() => {
+                        localStorage.removeItem('token');
+                        window.location.reload();
+                    }} className="mt-6 w-full flex items-center justify-center py-1 px-2 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto">
+                        Log out
+                    </button>
                 </div>
             </div>
         </div>
