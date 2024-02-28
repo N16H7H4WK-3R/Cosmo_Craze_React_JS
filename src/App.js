@@ -5,6 +5,7 @@ import PromoSection from './components/BaseViews/promoSection';
 import Footer from './components/BaseViews/footerSection';
 import MainContent from './components/mainContent';
 import PreLoader from './components/preLoader';
+import ProfileView from './components/profile';
 
 const SignIn = lazy(() => import('./components/RegistrationViews/signIn'));
 const SignUp = lazy(() => import('./components/RegistrationViews/signup'));
@@ -24,6 +25,13 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot-password" element={<ForgotPasswordView />} />
             <Route path="/reset-password" element={<ResetPasswordView />} />
+            <Route path="/profile" element={
+              <>
+                <Header />
+                <ProfileView />
+                <Footer />
+              </>
+            } />
             <Route
               path="/"
               element={
