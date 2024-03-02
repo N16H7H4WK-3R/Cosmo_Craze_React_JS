@@ -5,7 +5,7 @@ import PromoSection from './components/BaseViews/promoSection';
 import Footer from './components/BaseViews/footerSection';
 import MainContent from './components/mainContent';
 import PreLoader from './components/preLoader';
-import ProfileView from './components/profile';
+import ProfileView from './components/UserViews/userProfile';
 
 const SignIn = lazy(() => import('./components/RegistrationViews/signIn'));
 const SignUp = lazy(() => import('./components/RegistrationViews/signup'));
