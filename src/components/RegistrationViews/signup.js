@@ -86,7 +86,7 @@ export default function SignUp() {
                     showToast('Sign Up Successful!', 'success');
                     setTimeout(() => {
                         navigate('/');
-                    }, 2000);
+                    }, 1000);
                 } else {
                     showToast('Token is undefined. Please try again later.', 'error');
                 }

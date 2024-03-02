@@ -72,7 +72,7 @@ const SignIn = () => {
                 showToast('Log In Successful!', 'success');
                 setTimeout(() => {
                     navigate('/');
-                }, 3000);
+                }, 1000);
             } else {
                 showToast('Login failed. Please check your credentials.', 'error');
             }

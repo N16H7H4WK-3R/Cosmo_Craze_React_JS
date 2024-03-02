@@ -6,7 +6,7 @@ import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/
 
 export default function Header() {
     const navigate = useNavigate();
-    const [firstName, setFirstName] = useState(null);
+    const [email, setEmail] = useState(null);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -17,7 +17,7 @@ export default function Header() {
                 },
             })
                 .then(response => {
-                    setFirstName(response.data.customer.first_name);
+                    setEmail(response.data.customer.email);
                 })
                 .catch(error => {
                     console.error('Error fetching user information:', error);
@@ -41,10 +41,10 @@ export default function Header() {
                         </form>
                     </div>
                     <div className="flex lg:flex-1 lg:justify-end">
-                        {firstName ? (
+                        {email ? (
                             <div className="flex items-center">
                                 <button onClick={() => navigate('/profile')} className="text-xs font-semibold leading-6 text-white hover:text-red-800">
-                                    Welcome, {firstName}
+                                    {email}
                                 </button>
                             </div>
                         ) : (
