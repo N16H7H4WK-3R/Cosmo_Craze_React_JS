@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navigation from './navigationSection';
 import axios from 'axios';
-import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_transparent_logo.png';
+import logo from '../assets/cosmo_craze_transparent_logo.png';
 
 export default function Header() {
     const navigate = useNavigate();

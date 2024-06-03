@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from '/home/aryangupta/Personal_Space/Projects@2024/cosmo_craze/src/assets/cosmo_craze_logo.png';
+import logo from '../assets/cosmo_craze_logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
